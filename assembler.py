@@ -1,7 +1,7 @@
 from toolkit import *
 import filecmp
 
-readFileName = "sic_xe_fig2_9"
+readFileName = "sic_xe_fig2_11"
 f = open(readFileName + ".txt", "r")
 fileContent = f.read()
 lines = fileContent.split('\n')
@@ -11,9 +11,9 @@ f.close()
 (symbolTable, programLeng, endLoc, startAddress, literalPool, programBlockStart) = assemble_pass1(lines)
 for line in lines:
     print(line)
-print(literalPool,"literal")
+print(literalPool, "literal")
 # pass 2
-(objectCodes, modifiedLoc) = assemble_pass2(lines, symbolTable, endLoc, literalPool,programBlockStart)
+(objectCodes, modifiedLoc) = assemble_pass2(lines, symbolTable, endLoc, literalPool, programBlockStart)
 print("==============")
 print(symbolTable)
 
@@ -24,7 +24,7 @@ for line in lines[1:]:
     colTuple = parseLine(line)
     opStr = colTuple[1]
     saveFile.write(line)
-    if opStr == 'END' :
+    if opStr == 'END':
         saveFile.write("\n")
         break
     if opStr == 'BASE' or opStr == 'RESW' or opStr == 'RESB' or opStr == 'EQU' or opStr == "USE":
@@ -39,8 +39,6 @@ for line in lines[1:]:
     saveFile.write(objectCodes[i] + "\n")
     i += 1
 saveFile.close()
-
-
 
 saveObjFile = open(readFileName + "_object_program.txt", 'w')
 FirstcolTuple = parseLine(lines[0])
@@ -59,7 +57,8 @@ for line in lines[1:]:
     opStr = colTuple[1]
     if colTuple[1] == 'END':
         break
-    if colTuple == ('', '', '') or opStr == 'BASE' or opStr == 'NOBASE' or opStr == 'EQU' or opStr == 'LTORG':
+    if colTuple == (
+    '', '', '') or opStr == 'BASE' or opStr == 'NOBASE' or opStr == 'EQU' or opStr == 'LTORG' or opStr == "USE":
         continue
     if colTuple[0].find(".") == 0: continue
 
