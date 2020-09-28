@@ -27,7 +27,7 @@ for line in lines[1:]:
     if opStr == 'END':
         saveFile.write("\n")
         break
-    if opStr == 'BASE' or opStr == 'RESW' or opStr == 'RESB' or opStr == 'EQU' or opStr == "USE":
+    if opStr in ('BASE', 'RESW', 'RESB', 'EQU', 'USE'):
         saveFile.write("\n")
         continue
     if colTuple == ('', '', '') or opStr == 'LTORG':
@@ -58,7 +58,7 @@ for line in lines[1:]:
     if colTuple[1] == 'END':
         break
     if colTuple == (
-    '', '', '') or opStr == 'BASE' or opStr == 'NOBASE' or opStr == 'EQU' or opStr == 'LTORG' or opStr == "USE":
+            '', '', '') or opStr in ('BASE', 'NOBASE', 'EQU', 'LTORG', 'USE'):
         continue
     if colTuple[0].find(".") == 0: continue
 
