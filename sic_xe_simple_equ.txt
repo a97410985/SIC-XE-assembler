@@ -1,0 +1,13 @@
+main    START   0
+first   LDA    =C'FOO'
+        LDS    =C'BAR'
+        LDL    =C'FOO'
+        LDA    #100
+        J       next1
+BUFFER  RESB    256
+BUFEND  EQU     *       
+next1   LDA     BUFEND
+        LDS    =X'ABCDEF'
+        LDT    =X'123456'
+        LDA    #200
+        END

@@ -1,0 +1,15 @@
+first   LDA    =C'FOO'        03200c
+        LDS    =C'BAR'        6f200c
+        LDL    =C'FOO'        0b2006
+        LDA    #100           010064
+        J       next1         3f2006
+        LTORG
+*      =C'FOO'                464f4f
+*      =C'BAR'                424152
+next1   LDB    =X'123456'     6b200c
+        LDS    =X'ABCDEF'     6f200c
+        LDT    =X'123456'     772006
+        LDA    #200           0100c8
+*      =X'123456'             123456
+*      =X'ABCDEF'             ABCDEF
+        END

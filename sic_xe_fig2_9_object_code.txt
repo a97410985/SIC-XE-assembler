@@ -1,0 +1,54 @@
+FIRST   STL     RETADR        17202d
+        LDB    #LENGTH        69202d
+        BASE    LENGTH
+CLOOP  +JSUB    RDREC         4b101036
+        LDA     LENGTH        032026
+        COMP   #0             290000
+        JEQ     ENDFIL        332007
+       +JSUB    WRREC         4b10105d
+        J       CLOOP         3f2fec
+ENDFIL  LDA    =C'EOF'        032010
+        STA     BUFFER        0f2016
+        LDA    #3             010003
+        STA     LENGTH        0f200d
+       +JSUB    WRREC         4b10105d
+        J      @RETADR        3e2003
+        LTORG
+*      =C'EOF'                454f46
+RETADR  RESW    1
+LENGTH  RESW    1
+BUFFER  RESB    4096
+BUFEND  EQU     *
+MAXLEN  EQU     BUFEND-BUFFER
+.
+.       Subroutine to read record into buffer
+.
+RDREC   CLEAR   X             b410
+        CLEAR   A             b400
+        CLEAR   S             b440
+       +LDT    #MAXLEN        75101000
+RLOOP   TD      INPUT         e32019
+        JEQ     RLOOP         332ffa
+        RD      INPUT         db2013
+        COMPR   A,S           a004
+        JEQ     EXIT          332008
+        STCH    BUFFER,X      57c003
+        TIXR    T             b850
+        JLT     RLOOP         3b2fea
+EXIT    STX     LENGTH        134000
+        RSUB                  4f0000
+INPUT   BYTE    X'F1'         F1
+.
+.       Subroutine to write record from buffer
+.
+WRREC   CLEAR   X             b410
+        LDT     LENGTH        774000
+WLOOP   TD     =X'05'         e32011
+        JEQ     WLOOP         332ffa
+        LDCH    BUFFER,X      53c003
+        WD     =X'05'         df2008
+        TIXR    T             b850
+        JLT     WLOOP         3b2fef
+        RSUB                  4f0000
+*      =X'05'                 05
+        END     FIRST

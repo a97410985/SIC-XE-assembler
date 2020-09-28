@@ -1,0 +1,16 @@
+first   LDA    =C'FOO'        032118
+        LDS    =C'BAR'        6f2118
+        LDL    =C'FOO'        0b2112
+        LDA    #100           010064
+        J       next1         3f2100
+BUFFER  RESB    256
+BUFEND  EQU     *       
+next1   LDA     BUFEND        032ffd
+        LDS    =X'ABCDEF'     6f200c
+        LDT    =X'123456'     77200c
+*      =C'FOO'                464f4f
+*      =C'BAR'                424152
+*      =X'ABCDEF'             ABCDEF
+*      =X'123456'             123456
+        LDA    #200           0100c8
+        END

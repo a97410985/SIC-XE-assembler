@@ -1,0 +1,9 @@
+main    START   0
+first   LDA    =C'FOO'
+TWO     EQU     2
+THREE   EQU     3
+FIVE    EQU     TWO + THREE
+ONE     EQU     THREE - TWO
+FOUR    EQU     ONE + 3
+TEST    EQU     5 * 4 + 6 / 2
+        END
